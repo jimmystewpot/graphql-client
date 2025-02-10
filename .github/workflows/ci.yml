@@ -68,3 +68,17 @@ jobs:
       run: sudo apt update && sudo apt-get install -y nodejs
     - name: Execute prettier
       run: npx prettier --debug-check -l './**/*.json' './**/*.graphql'
+  msrv:
+    name: MSRV Checks
+    runs-on: ubuntu-latest
+    if: github.repository == 'graphql-rust/graphql-client'
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@v4
+    - name: Install toolchain
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        components: cargo-msrv
+    - name: Execute cargo msrv verify
+      run: cargo msrv verify --path graphql_client
+
