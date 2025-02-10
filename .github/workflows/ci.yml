@@ -71,7 +71,6 @@ jobs:
   msrv:
     name: MSRV Checks
     runs-on: ubuntu-latest
-    if: github.repository == 'graphql-rust/graphql-client'
     steps:
     - name: Checkout sources
       uses: actions/checkout@v4
