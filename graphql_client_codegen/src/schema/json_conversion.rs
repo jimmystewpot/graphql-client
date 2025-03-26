@@ -296,9 +296,13 @@ fn ingest_input(schema: &mut Schema, input: &mut FullType) {
     let input = super::StoredInputType {
         fields,
         name: input.name.take().expect("Input without a name"),
-        // The one-of input spec is not stable yet, thus the introspection query does not have
-        // `isOneOf`, so this is always false.
-        is_one_of: false,
+        // The one-of input spec is not stable yet, the default for
+        // `isOneOf` is false, however if it exists it gets set to true.
+        is_one_of: if let Some(true) = input.is_one_of {
+            true
+        } else {
+            false
+        },
     };
 
     schema.stored_inputs.push(input);

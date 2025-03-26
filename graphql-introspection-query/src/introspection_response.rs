@@ -135,6 +135,7 @@ pub struct FullType {
     pub interfaces: Option<Vec<FullTypeInterfaces>>,
     pub enum_values: Option<Vec<FullTypeEnumValues>>,
     pub possible_types: Option<Vec<FullTypePossibleTypes>>,
+    pub is_one_of: Option<bool>,
 }
 
 #[derive(Clone, Debug, Deserialize)]
