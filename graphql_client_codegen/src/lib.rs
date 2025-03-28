@@ -104,6 +104,8 @@ pub fn generate_module_token_stream(
     let query = get_set_query_from_file(query_path.as_path());
     let schema = get_set_schema_from_file(schema_path);
 
+    println!("generate_module_token_stream:query_path: {}, schema_path: {}", query_path.display(), schema_path.display());
+
     generate_module_token_stream_inner(&query, &schema, options)
 }
 
