@@ -27,6 +27,7 @@ pub fn derive_graphql_query(input: proc_macro::TokenStream) -> proc_macro::Token
 fn graphql_query_derive_inner(
     input: proc_macro::TokenStream,
 ) -> Result<proc_macro::TokenStream, syn::Error> {
+    println!("graphql_query_derive_inner input: {}", input);
     let input = TokenStream::from(input);
     let ast = syn::parse2(input)?;
     let (query_path, schema_path) = build_query_and_schema_path(&ast)?;
