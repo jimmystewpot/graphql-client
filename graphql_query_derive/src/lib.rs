@@ -15,6 +15,9 @@ use proc_macro2::TokenStream;
 
 #[proc_macro_derive(GraphQLQuery, attributes(graphql))]
 pub fn derive_graphql_query(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    println!("");
+    println!("");
+    println!("");
     println!("derive_graphql_query: {:?}", input);
     match graphql_query_derive_inner(input) {
         Ok(ts) => ts,
