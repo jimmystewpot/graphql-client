@@ -15,6 +15,7 @@ use proc_macro2::TokenStream;
 
 #[proc_macro_derive(GraphQLQuery, attributes(graphql))]
 pub fn derive_graphql_query(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    println!("derive_graphql_query: {:?}", input);
     match graphql_query_derive_inner(input) {
         Ok(ts) => ts,
         Err(err) => err.to_compile_error().into(),
@@ -29,6 +30,7 @@ fn graphql_query_derive_inner(
     let (query_path, schema_path) = build_query_and_schema_path(&ast)?;
     let options = build_graphql_client_derive_options(&ast, query_path.clone())?;
 
+    println!("graphql_query_derive_inner:query_path: {}, schema_path: {}", query_path.display(), schema_path.display());
     generate_module_token_stream(query_path, &schema_path, options)
         .map(Into::into)
         .map_err(|err| {
