@@ -22,7 +22,7 @@ pub fn derive_graphql_query(input: proc_macro::TokenStream) -> proc_macro::Token
     match graphql_query_derive_inner(input) {
         Ok(ts) => ts,
         Err(err) => {
-            println!("Err: {:?}", err);
+            println!("DERIVE_ERROR: {:?}", err);
             err.to_compile_error().into()
         }
     }

@@ -172,6 +172,8 @@ fn generate_module_token_stream_inner(
 
     let modules = quote! { #(#modules)* };
 
+    println!("generate_module_token_stream_inner: modules_rendered: {}", modules);
+
     Ok(modules)
 }
 
