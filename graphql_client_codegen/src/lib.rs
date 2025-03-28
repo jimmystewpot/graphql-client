@@ -1,13 +1,13 @@
 #![deny(missing_docs)]
 #![warn(rust_2018_idioms)]
 #![allow(clippy::option_option)]
-
 //! Crate for Rust code generation from a GraphQL query, schema, and options.
 
 use lazy_static::*;
 use proc_macro2::TokenStream;
 use quote::*;
 use schema::Schema;
+
 
 mod codegen;
 mod codegen_options;
@@ -104,7 +104,7 @@ pub fn generate_module_token_stream(
     let query = get_set_query_from_file(query_path.as_path());
     let schema = get_set_schema_from_file(schema_path);
 
-    println!("generate_module_token_stream:query_path: {}, schema_path: {}", query_path.display(), schema_path.display());
+    println!("generate_module_token_stream: query_path: {}, schema_path: {}", query_path.display(), schema_path.display());
 
     generate_module_token_stream_inner(&query, &schema, options)
 }
@@ -139,6 +139,8 @@ fn generate_module_token_stream_inner(
         .and_then(|operation_name| query.select_operation(operation_name, *options.normalization()))
         .map(|op| vec![op]);
 
+    println!("generate_module_token_stream_inner: operations");
+
     let operations = match (operations, &options.mode) {
         (Some(ops), _) => ops,
         (None, &CodegenMode::Cli) => query.operations().collect(),
@@ -165,6 +167,8 @@ fn generate_module_token_stream_inner(
         .to_token_stream()?;
         modules.push(generated);
     }
+
+    println!("generate_module_token_stream_inner: modules: {:#?}", modules);
 
     let modules = quote! { #(#modules)* };
 
