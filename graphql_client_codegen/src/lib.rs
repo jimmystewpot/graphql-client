@@ -139,8 +139,6 @@ fn generate_module_token_stream_inner(
         .and_then(|operation_name| query.select_operation(operation_name, *options.normalization()))
         .map(|op| vec![op]);
 
-    println!("generate_module_token_stream_inner: operations");
-
     let operations = match (operations, &options.mode) {
         (Some(ops), _) => ops,
         (None, &CodegenMode::Cli) => query.operations().collect(),
@@ -168,11 +166,7 @@ fn generate_module_token_stream_inner(
         modules.push(generated);
     }
 
-    println!("generate_module_token_stream_inner: modules: {:?}", modules);
-
     let modules = quote! { #(#modules)* };
-
-    println!("generate_module_token_stream_inner: modules_rendered: {}", modules);
 
     Ok(modules)
 }
